@@ -1,12 +1,20 @@
 {
   "urls": [
     [
-      "template.py",
-      "github:SolderedElectronics/[REPO_NAME]/template.py"
+      "bmm350.py",
+      "github:SolderedElectronics/Soldered-BMM350-MicroPython-Library/bmm350.py"
     ],
     [
-      "Examples/template-example.py",
-      "github:SolderedElectronics/[REPO_NAME]/Examples/template-example.py"
+      "Examples/bmm350-basicReadings.py",
+      "github:SolderedElectronics/Soldered-BMM350-MicroPython-Library/Examples/bmm350-basicReadings.py"
+    ],
+    [
+      "Examples/bmm350-dataReadyInterrupt.py",
+      "github:SolderedElectronics/Soldered-BMM350-MicroPython-Library/Examples/bmm350-dataReadyInterrupt.py"
+    ],
+    [
+      "Examples/bmm350-selfTest.py",
+      "github:SolderedElectronics/Soldered-BMM350-MicroPython-Library/Examples/bmm350-selfTest.py"
     ]
   ],
   "deps": [],

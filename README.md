@@ -1,25 +1,28 @@
-# Soldered NAZIV PROIZVODA MicroPython Library
+# Soldered BMM350 Geomagnetic Sensor MicroPython Library
 
-| ![Product name](https://upload.wikimedia.org/wikipedia/commons/8/8f/Example_image.svg) |
-| :------------------------------------------------------------------------------------: |
-|                      [NAZIV PROIZVODA](https://www.solde.red/SKU)                      |
+| ![Soldered BMM350 Geomagnetic Sensor breakout](TODO_PRODUCT_IMAGE_URL) |
+| :-----------------------------------------------------------------------------------------------: |
+|                          [Soldered BMM350 Geomagnetic Sensor breakout](https://www.solde.red/333359)                     |
 
-OPIS PROIZVODA + LINK NA [Qwiic ecosystem](https://soldered.com/collections/qwiic-ecosystem).
+<!-- TODO: product not released yet (SKU 333359), swap the image URL above once the listing is live -->
 
-### Using the template
+Breakout board for the Bosch BMM350 geomagnetic sensor, measuring magnetic field on all three axes with a resolution down to 20 nT, output data rates up to 400 Hz and a data-ready interrupt. It supports normal and forced power modes for balancing measurement speed against power consumption. The board communicates over I2C only and is part of the [Qwiic ecosystem](https://soldered.com/collections/qwiic-ecosystem).
 
-Before publishing a new library make sure to update:
+### Quick start
 
-- `NAZIV PROIZVODA`, `OPIS PROIZVODA`, product image, SKU link, and the "Original source" line in this README
-- if there was no original soruce remove that section
-- update `package.json` with every filename and examples
-- add git tags and update git description
+```python
+from bmm350 import BMM350, BMM350_OK
+import time
 
-Also make sure to add examples.
+sensor = BMM350()  # Or BMM350(address=BMM350_I2C_ADSEL_SET_HIGH) if ADSEL is pulled high
 
-**Remove this section of README after everything is done!**
+while True:
+    if sensor.get_sensor_data() == BMM350_OK:
+        print(sensor.data.mag_x, sensor.data.mag_y, sensor.data.mag_z, sensor.data.temperature)
+    time.sleep(1)
+```
 
-For uploading to mim you need to login using the soldered account and submit the repo.
+Have a look at the scripts in `Examples/` for basic readings, the sensor's physical interrupt pin, and the built-in self-test.
 
 ### How to install
 
@@ -30,23 +33,31 @@ or
 After [**installing the mpremote package**](https://docs.micropython.org/en/latest/reference/mpremote.html), install the library on your board using the following command:
 
 ```sh
-  mpremote mip install github:SolderedElectronics/[REPO_NAME]
+  mpremote mip install github:SolderedElectronics/Soldered-BMM350-MicroPython-Library
 ```
 Or, if you're running a Windows OS:
 
 ```sh
-  python -m mpremote mip install github:SolderedElectronics/[REPO_NAME]
+  python -m mpremote mip install github:SolderedElectronics/Soldered-BMM350-MicroPython-Library
 ```
 
 ### Repository Contents
 
-- **[nazivproizvoda].py** - MicroPython driver class
+- **bmm350.py** - MicroPython driver class, I2C only
 - **package.json** - mip install manifest
-- **/Examples** - examples for using the library
+- **/Examples** - examples for basic readings, the physical interrupt pin, and the self-test
+
+### Examples
+
+| Example | What it does |
+| :------ | :----------- |
+| `bmm350-basicReadings.py` | Reads magnetometer and temperature data in a loop in normal power mode, the mode most applications want |
+| `bmm350-dataReadyInterrupt.py` | Uses the sensor's physical interrupt pin to know when a new reading is ready, instead of polling the interrupt status register |
+| `bmm350-selfTest.py` | Runs the sensor's built-in self-test and reports pass/fail per axis |
 
 ### Hardware design
 
-You can find hardware design for this board in _NAZIV PROIZVODA_ hardware repository.
+You can find hardware design for this board in _Soldered BMM350 Geomagnetic Sensor breakout_ hardware repository.
 
 ### Documentation
 
@@ -64,7 +75,7 @@ At Soldered, we design and manufacture a wide selection of electronic products t
 
 ### Original source
 
-This library is possible thanks to original [[LIBRARY_NAME]]([LIBRARY_LINK]) library. Thank you, [AUTHOR].
+This library is a register-level port of the [BMM350_SensorAPI](https://github.com/boschsensortec/BMM350_SensorAPI) by Bosch Sensortec, cross-checked against the Soldered [Arduino](https://github.com/SolderedElectronics/Soldered-BMM350-Arduino-Library) and [ESP-IDF](https://github.com/SolderedElectronics/Soldered-BMM350-ESP-IDF-Component) BMM350 libraries. Thank you, Bosch Sensortec.
 
 ### Open-source license
 
